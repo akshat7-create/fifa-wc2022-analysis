@@ -1,0 +1,33 @@
+Step by step process
+1) Firstly the raw data was analysed and cleaned. Data Cleaning process was as follows:
+In the raw data, there was no "OUTCOME" column in the dataset which told us that which team had won the game.
+
+2) I used Excel's IF function to create a formula to determine a winner from the matches
+The formula was as follows: =IF(F2 > G2, A2, IF(F2 < G2, B2, "Draw"))
+
+3) Then just before fixing few data type issues with the dates, I realised that there were no underscores between the column headings
+I figured it will be easier to work if the column headings had underscore in between the spaces.
+I used a nested trim and substitute formula and it was as follows: =SUBSTITUTE(TRIM(A1)," ","_"‎)
+
+4) There after the dataset was imported in Microsoft SQL Server for further analysis:
+I had already set few deliverables, some of them were as follows:
+a) Average Possession by Top 10 Teams
+b) Most Fouls Committed by Top 10 Teams
+c) Goal Conversion Rate based on Goals Scored and Attempts on Target
+d) Total Goals Inside the Box vs. Outside the Box
+
+5) Each deliverable was presented by experimenting here and there with sql functions. 
+PS: I used UNION ALL quite a lot of times since the complexitiy of the data.
+
+6) Since, it was my first time using Power BI, I had no idea how to import multiple queries via DirectImport feature.
+
+7) Therefore, to tackle that situtation I imported all the respected queries indivitually and renamed each of the 
+imported table in Power BI.
+
+8) I fiddled around with the chart types and realised that having 32 teams or 32 different variables was quite a large number.
+I decided to limit to top 10 countries. So I went back to the DirectImport feature and edited source which opened the PowerQuery feature where I updated my code by adding "TOP 10" after select. I did this for each table.
+
+9) Thereafter I made all the required changes and created a dashboard after creating a visual for each of the deliverable I had set.
+
+10) Personally, I really enjoyed doing this project and it was a perfect way to learn quite intesively about SQL, POWER BI and had an amazing opportunity to develop my analytical skills.
+
