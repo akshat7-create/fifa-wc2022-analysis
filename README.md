@@ -12,7 +12,7 @@ This project focuses on analyzing the data from the FIFA World Cup 2022. It invo
 
 ## Creating a Formula in Excel to Determine the Winner
 
-- Implemented the IF function in Excel to compare scores and determine the winner for each match.
+- Implemented the Nested IF function in Excel to compare scores and determine the winner for each match.
 - Provided specific examples showcasing the formula's application and its effectiveness in identifying match outcomes.
 
 ## Fixing Data Type Issues and Adjusting Column Headings
