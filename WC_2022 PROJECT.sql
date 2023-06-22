@@ -2,10 +2,10 @@
 SELECT TOP 10 team, SUM(fouls) as most_fouls_committed
 FROM (
     SELECT team1 as team, fouls_against_team1 as fouls
-    FROM Fifa_world_cup_matches$
+    FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
     UNION ALL
     SELECT team2 as team, fouls_against_team2 as fouls
-    FROM Fifa_world_cup_matches$
+    FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
 ) as match_fouls
 GROUP BY team
 ORDER BY most_fouls_committed DESC;
@@ -15,10 +15,10 @@ ORDER BY most_fouls_committed DESC;
 SELECT team, SUM(goals) as goals_scored
 FROM (
     SELECT team1 as team, number_of_goals_team1 as goals
-    FROM Fifa_world_cup_matches$
+    FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
     UNION ALL
     SELECT team2 as team, number_of_goals_team2 as goals
-    FROM Fifa_world_cup_matches$
+    FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
 ) as match_goals
 GROUP BY team
 ORDER BY goals_scored DESC;
@@ -28,10 +28,10 @@ ORDER BY goals_scored DESC;
 SELECT team, SUM(on_target_attempts) as total_on_target_attempts
 FROM (
     SELECT team1 as team, on_target_attempts_team1 as on_target_attempts
-    FROM Fifa_world_cup_matches$
+    FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
     UNION ALL
     SELECT team2 as team, on_target_attempts_team2 as on_target_attempts
-    FROM Fifa_world_cup_matches$
+    FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
 ) as match_on_target_attempts
 GROUP BY team
 ORDER BY total_on_target_attempts DESC;
@@ -49,10 +49,10 @@ SELECT
     END,2) as goal_conversion_rate
 FROM (
     SELECT team1 as team, number_of_goals_team1 as goals, on_target_attempts_team1 as on_target_attempts
-    FROM Fifa_world_cup_matches$
+    FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
     UNION ALL
     SELECT team2 as team, number_of_goals_team2 as goals, on_target_attempts_team2 as on_target_attempts
-    FROM Fifa_world_cup_matches$
+    FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
 ) as match_stats
 GROUP BY team
 ORDER BY goal_conversion_rate DESC;
@@ -61,10 +61,10 @@ ORDER BY goal_conversion_rate DESC;
 SELECT TOP 10 team, ROUND(AVG(possession)*100, 2) AS avg_possession
 FROM (
 		SELECT team1 as team, possession_team1 as possession
-		FROM Fifa_world_cup_matches$
+		FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
 		UNION ALL	
 		SELECT team2 as team, possession_team2 as possession
-		FROM Fifa_world_cup_matches$
+		FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
 		) subquery
 		GROUP BY team
 		ORDER BY avg_possession DESC
@@ -73,11 +73,11 @@ SELECT distinct team, COUNT(*) as total_draws
 FROM 
 	(
 	SELECT team1 as team
-	FROM Fifa_world_cup_matches$
+	FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
 	WHERE Outcome='Draw'
 	UNION ALL
 	SELECT team2 as team
-	FROM Fifa_world_cup_matches$
+	FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
 	WHERE Outcome='Draw'
 
 	) sui
@@ -124,3 +124,17 @@ FROM (
 		) sui
 		GROUP BY team
 		ORDER BY Offsides_Per_Team desc
+
+
+
+--Finding co-relation between total offsides and total goals scored--
+SELECT team, SUM(offsides) AS total_offsides, SUM(goals) AS total_goals
+FROM (
+    SELECT team1 AS team, offsides_team1 AS offsides, number_of_goals_team1 AS goals
+    FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
+    UNION ALL
+    SELECT team2 AS team, offsides_team2 AS offsides, number_of_goals_team2 AS goals
+    FROM Fifa_WC_2022.dbo.Fifa_world_cup_matches$
+) subquery
+GROUP BY team
+ORDER BY total_goals desc
